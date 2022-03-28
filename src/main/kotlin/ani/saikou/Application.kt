@@ -13,11 +13,20 @@ import io.ktor.server.plugins.*
 import parsers.*
 import reference.Parser
 
-val serviceMap = mutableMapOf<String,Parser>(
-    "nineanime" to NineAnime(),
-    "gogoanime" to GogoAnime(),
-    "twist" to Twist(),
-    "tenshi" to Tenshi()
+val serviceMap = mutableMapOf<String,Map<String,Parser>>(
+    "anime" to mapOf(
+        "nineanime" to NineAnime(),
+        "gogoanime" to GogoAnime(),
+        "twist" to Twist(),
+        "tenshi" to Tenshi()
+    ),
+//    "manga" to mapOf(
+//        "mangabuddy" to Nothing(),
+//        "mangasee" to Nothing(),
+//        "mangapill" to Nothing(),
+//        "mangadex" to Nothing(),
+//        "mangareader" to Nothing()
+//    )
 )
 
 fun main() {

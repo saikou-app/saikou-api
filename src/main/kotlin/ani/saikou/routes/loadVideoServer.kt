@@ -9,12 +9,14 @@ import io.ktor.server.routing.*
 import reference.*
 
 fun Route.loadVideoServer() {
-    post("/loadvideoserver/{service}") {
+    post("/loadvideoserver/{service}/{provider}") {
         val mediaObj = call.receive<PostURL>().also { println(it) }
         val arrayOfVideoServer = mutableListOf<VideoServer>()
-        serviceMap[call.parameters["service"]]!!.loadVideoServers(mediaObj.url){
+        val service = call.parameters["service"]!!.lowercase()
+        val provider = call.parameters["provider"]!!.lowercase()
+        serviceMap[service]!![provider]!!.loadVideoServers(mediaObj.url){
             arrayOfVideoServer.add(it)
         }
-        call.respond(arrayOfVideoServer)
+       call.respond(arrayOfVideoServer)
     }
 }

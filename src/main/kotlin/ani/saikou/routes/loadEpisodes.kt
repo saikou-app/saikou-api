@@ -8,10 +8,12 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.loadEpisodes() {
-    post("/loadepisodes/{service}") {
+    post("/loadepisodes/{service}/{provider}") {
         val mediaObj = call.receive<PostURL>().also { println(it) }
+        val service = call.parameters["service"]!!.lowercase()
+        val provider = call.parameters["provider"]!!.lowercase()
         call.respond(
-            serviceMap[call.parameters["service"]]!!.loadEpisodes(mediaObj.url)
+            serviceMap[service]!![provider]!!.loadEpisodes(mediaObj.url)
         )
     }
 }
